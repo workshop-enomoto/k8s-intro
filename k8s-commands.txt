@@ -45,3 +45,10 @@ kubectl create = Creates a new k8s resource in the cluster
 kubectl replace = Updates a resource in the live cluster
 kubectl apply = If I want to do create + replace
 
+--> Inspecting and Configuring Pods
+k describe po <container> -n default | grep Status:
+k get po <container> -o yaml
+k get po <container> -n default -o yaml | grep phase:
+k logs <container>
+k exec -it <container> /bin/bash
+
