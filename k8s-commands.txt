@@ -1,0 +1,47 @@
+k config set-context --current --namespace=deployment-demo
+k get po --show-labels --all-namespaces -o wide
+
+Don't wati for a graceful deletion of objects
+k delete pod nginx --grace-perid=0 --force
+
+k get deployment nginx
+k get deployment nginx --output=yaml
+
+if [ ! -d ~/tmp ]; then mkdir -p ~/tmp; fi; while true; do echo $(date) >> ~/tmp/date.txt; sleep 5; done;
+
+k describe po | grep -C 10 "author=Jhon Doe"
+k get po -o yaml | grep -C 5 labels:
+
+
+k get po <container-name> -o yaml
+
+Modelo Imperativo -> kubectl
+Model Declarativo -> yaml file
+
+---> No hands-on sempre tentar apresentar os 2 modos
+
+k create namespace ckad
+k run nginx --image=nginx --restart=Never -n ckad
+k edit po/nginx -n ckad
+  -> aterar a label para nginx1
+  -> salvar: :wq
+  -> k get po --show-labels
+  -> alterar o nome do pod para nginx1
+  -> o arquivo sera criado na past tmp
+  -> delete o pod corrente
+  -> usar o k apply -f /tmp/<arquivo-criado> 
+
+vim nginx-pod.yaml
+k create -f nginx-pod.yaml or k apply -f nginx-pod.yaml
+k delete pod/nginx
+
+Hybrid Approach
+k run nginx --image=nginx --restart=Never -n ckad --dry-run=client -o yaml
+k run nginx --image=nginx --restart=Never -n ckad --dry-run=client -o yaml > nginx-pod.yaml
+
+https://www.ibm.com/cloud/blog/8-kubernetes-tips-and-tricks
+
+kubectl create = Creates a new k8s resource in the cluster
+kubectl replace = Updates a resource in the live cluster
+kubectl apply = If I want to do create + replace
+
